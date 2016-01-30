@@ -13,7 +13,33 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_width="wrap_content"
+        android:text="@string/welcome_text" />
+
+    <TextView
+        android:id="@+id/some_text"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/sample_text" />
+
+    <TextView
+        android:id="@+id/some_more_text"
+        android:layout_below="@+id/some_text"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/sample_text" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_below="@+id/some_more_text"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/button_text" />
 </RelativeLayout>
