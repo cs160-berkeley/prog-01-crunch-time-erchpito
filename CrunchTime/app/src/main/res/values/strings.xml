@@ -4,4 +4,18 @@
     <string name="button_text">Update</string>
     <string name="sample_text">I am a potato</string>
     <string name="welcome_text">Hello World!</string>
+
+    <string name="pushup_text">Pushup</string>
+    <string name="situp_text">Situp</string>
+    <string name="squats_text">Squats</string>
+    <string name="leg_lift_text">Leg-lift</string>
+    <string name="plank_text">Plank</string>
+    <string name="jumping_jacks_text">Jumping Jacks</string>
+    <string name="pullup_text">Pullup</string>
+    <string name="cycling_text">Cycling</string>
+    <string name="walking_text">Walking</string>
+    <string name="jogging_text">Jogging</string>
+    <string name="swimming_text">Swimming</string>
+    <string name="stair_climbing_text">Stair-Climbing</string>
+
 </resources>

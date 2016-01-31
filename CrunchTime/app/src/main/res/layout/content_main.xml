@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:text="@string/welcome_text" />
 
-    <TextView
+    <EditText
         android:id="@+id/some_text"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
@@ -27,19 +27,48 @@
         android:layout_width="wrap_content"
         android:text="@string/sample_text" />
 
-    <TextView
-        android:id="@+id/some_more_text"
+    <Button
+        android:id="@+id/button"
         android:layout_below="@+id/some_text"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="@string/sample_text" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_below="@+id/some_more_text"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
         android:text="@string/button_text" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/pushup_text" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/situp_text" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/jumping_jacks_text" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/jogging_text"/>
+    </RadioGroup>
 </RelativeLayout>
