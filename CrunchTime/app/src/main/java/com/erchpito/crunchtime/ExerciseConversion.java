@@ -1,6 +1,11 @@
 package com.erchpito.crunchtime;
 
-import java.util.*;
+import java.util.Scanner;
+
+//Todo: Provide improved visuals and aesthetic iconography.
+//Todo: More accurate metrics: the numbers we gave on the table are a rough approximate for someone who weighs 150 pounds. Allow users to input their weight, and factor that into calculations. (You may have to do some Googling to get a conversion formula).
+//Todo: For the experienced Android programmer: a Personal Fitness App, which, after the user has input how many calories they want to burn (see bullet #2), pushes notifications of encouragement, or calories remaining.
+//Todo: Enable orientation (app should be viewable in portrait and landscape mode).
 
 /**
  * Created by erchpito on 30/1/2016.
@@ -26,12 +31,20 @@ public class ExerciseConversion {
         public int convert(int amount, boolean toCalorie, boolean debug) {
             int result = (int) (amount * (toCalorie ? myCalorie / myAmount : myAmount / myCalorie));
             if (debug) {
-                System.out.println(myName + ":\t" + amount
-                        + (toCalorie ? " " + myType : " cal") + " -> "
+                System.out.println(amount
+                        + (toCalorie ? " " + myType + " of " + myName.toLowerCase() : " cal") + " -> "
                         + result
-                        + (toCalorie ? " cal" : " " + myType));
+                        + (toCalorie ? " cal" : " " + myType + " of " + myName.toLowerCase()));
             }
             return result;
+        }
+
+        public String getMyName() {
+            return myName;
+        }
+
+        public String getMyType() {
+            return myType;
         }
     }
 
@@ -71,29 +84,50 @@ public class ExerciseConversion {
         return exercises[exercise].convert(amount, toCalorie, debug);
     }
 
+    public int translate(int exercise1, int exercise2, int amount, boolean debug) {
+        int result = convert(exercise2, convert(exercise1, amount, true, false), false, false);
+        if (debug) {
+            System.out.println(amount + " " + exercises[exercise1].getMyType() + " of "
+                    + exercises[exercise1].getMyName().toLowerCase() + " -> " + result + " "
+                    + exercises[exercise2].getMyType() + " of "
+                    + exercises[exercise2].getMyName().toLowerCase());
+        }
+        return result;
+    }
+
     // to test the functions
     public static void main(String[] args) {
+        ExerciseConversion converter = new ExerciseConversion();
         Scanner in = new Scanner(System.in);
 
-        // Polling for an exercise
-        System.out.println("Enter an exercise: ");
-        int myExercise = in.nextInt();
+        boolean run = true;
+        while (run) {
+            // Polling for an exercise
+            System.out.print("Enter an exercise: ");
+            //Todo: consider if users will want to input exercise first for finding calorie conversion
+            int myExercise = in.nextInt();
 
-        // Polling for calorie or amount measure
-        System.out.println("Choose a mode -- 0: calories to reps / minutes, "
-                + "1: reps / minutes to calories: ");
-        boolean wantCalorie = (in.nextInt() == 1);
-
-        if (wantCalorie) {
-            System.out.println("Enter reps / minutes: ");
-            int amount = in.nextInt();
-            System.out.println("");
-            for (int i = 0; i < 12; i++) {
-                if (i != myExercise) {
-                    System.out.println("");
+            if (myExercise == -1) {
+                run = false;
+            } else {
+                // Polling for calorie or amount measure
+                System.out.print("Choose a mode -- 0: calories to reps / minutes, "
+                        + "1: reps / minutes to calories: ");
+                boolean toCalorie = (in.nextInt() == 1);
+                System.out.print((toCalorie ? "Enter reps / minutes: " : "Enter calories: "));
+                int amount = in.nextInt();
+                converter.convert(myExercise, amount, toCalorie, true);
+                System.out.println("--------------------");
+                for (int i = 0; i < converter.NUM_EXERCISE; i++) {
+                    if (i != myExercise) {
+                        if (toCalorie) {
+                            converter.translate(myExercise, i, amount, true);
+                        } else {
+                            converter.convert(i, amount, toCalorie, true);
+                        }
+                    }
                 }
             }
         }
     }
-
 }
