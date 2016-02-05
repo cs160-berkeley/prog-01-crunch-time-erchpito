@@ -4,6 +4,11 @@
     <string name="button_text">Update</string>
     <string name="sample_text">I am a potato</string>
     <string name="welcome_text">Hello World!</string>
+    <string name="edit_message">Enter amount</string>
+    <string name="unit_calorie">cal</string>
+    <string name="unit_amount">reps</string>
+
+    <string name="button_update">Update</string>
 
     <string name="pushup_text">Pushup</string>
     <string name="situp_text">Situp</string>
@@ -17,5 +22,20 @@
     <string name="jogging_text">Jogging</string>
     <string name="swimming_text">Swimming</string>
     <string name="stair_climbing_text">Stair-Climbing</string>
+
+    <string-array name="exercise_array">
+        <item>Pushup</item>
+        <item>Situp</item>
+        <item>Squats</item>
+        <item>Leg-lift</item>
+        <item>Plank</item>
+        <item>Jumping Jacks</item>
+        <item>Pullup</item>
+        <item>Cycling</item>
+        <item>Walking</item>
+        <item>Jogging</item>
+        <item>Swimming</item>
+        <item>Stair-Climbing</item>
+    </string-array>
 
 </resources>

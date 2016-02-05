@@ -1,5 +1,7 @@
 package com.erchpito.crunchtime;
 
+import android.util.Log;
+
 import java.util.Scanner;
 
 //Todo: Provide improved visuals and aesthetic iconography.
@@ -11,6 +13,8 @@ import java.util.Scanner;
  * Created by erchpito on 30/1/2016.
  */
 public class ExerciseConversion {
+
+    private static final String TAG = "ExerciseConversion";
 
     class Exercise {
         private double myAmount;
@@ -80,19 +84,42 @@ public class ExerciseConversion {
         exercises[EXERCISE_STAIR_CLIMBING] = new Exercise("Stair-climbing", "mins", 15);
     }
 
+    public int convert(int exercise, int amount, boolean toCalorie) {
+        return exercises[exercise].convert(amount, toCalorie, false);
+    }
+
     public int convert(int exercise, int amount, boolean toCalorie, boolean debug) {
         return exercises[exercise].convert(amount, toCalorie, debug);
+    }
+
+    public int[] output(int exercise, int amount, boolean toCalorie, boolean debug) {
+        int[] result = new int[NUM_EXERCISE];
+        result[exercise] = convert(exercise, amount, toCalorie, debug);
+        for (int i = 0; i < NUM_EXERCISE; i++) {
+            if (i != exercise) {
+                if (toCalorie) {
+                    result[i] = translate(exercise, i, amount, debug);
+                } else {
+                    result[i] = convert(i, amount, toCalorie, debug);
+                }
+            }
+        }
+        return result;
     }
 
     public int translate(int exercise1, int exercise2, int amount, boolean debug) {
         int result = convert(exercise2, convert(exercise1, amount, true, false), false, false);
         if (debug) {
-            System.out.println(amount + " " + exercises[exercise1].getMyType() + " of "
+            Log.d(TAG, amount + " " + exercises[exercise1].getMyType() + " of "
                     + exercises[exercise1].getMyName().toLowerCase() + " -> " + result + " "
                     + exercises[exercise2].getMyType() + " of "
                     + exercises[exercise2].getMyName().toLowerCase());
         }
         return result;
+    }
+
+    public Exercise getExercise(int exercise) {
+        return exercises[exercise];
     }
 
     // to test the functions
@@ -103,7 +130,7 @@ public class ExerciseConversion {
         boolean run = true;
         while (run) {
             // Polling for an exercise
-            System.out.print("Enter an exercise: ");
+            System.out.print("Enter an exercise (-1 to exit): ");
             //Todo: consider if users will want to input exercise first for finding calorie conversion
             int myExercise = in.nextInt();
 
