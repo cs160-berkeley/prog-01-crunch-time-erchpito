@@ -1,5 +1,6 @@
 package com.erchpito.crunchtime;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,17 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -30,16 +35,54 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private int selectedExercise;
     private int amountRep;
     private int amountCal;
+    private int[] output;
     private String selectedUnit;
+    private String[] exercises;
+    private String[] units;
 
     private ExerciseConversion converter;
+    private ExerciseArrayAdapter listAdapter;
 
-    private Spinner exerciseSpinner;
+    private Button updateButton;
     private EditText editAmount;
     private EditText editCalorie;
+    private ListView exerciseList;
+    private Spinner exerciseSpinner;
     private TextView unitAmount;
     private TextView unitCalorie;
-    private Button updateButton;
+
+    private class ExerciseArrayAdapter extends ArrayAdapter<CharSequence> {
+
+        private Context mContext;
+
+        public ExerciseArrayAdapter(Context context) {
+            super(context, R.layout.exercise_list_view, exercises);
+            mContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.exercise_list_view, parent, false);
+            }
+
+            TextView otherExercise = (TextView) convertView.findViewById(R.id.list_view_exercise);
+            TextView otherAmount = (TextView) convertView.findViewById(R.id.list_view_amount);
+            otherExercise.setText(exercises[position]);
+
+            String render = Integer.toString(output[position]) + " ";
+            if (output[position] == 1) {
+                render += units[position].substring(0, units[position].length() - 1);
+            } else {
+                render += units[position];
+            }
+            otherAmount.setText(render);
+
+            return convertView;
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,24 +106,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         selectedExercise = 0;
         amountRep = 100;
         amountCal = 100;
-        selectedUnit = "reps";
+        exercises = getResources().getStringArray(R.array.exercises_array);
+        units = getResources().getStringArray(R.array.units_array);
+        selectedUnit = units[selectedExercise];
 
         converter = new ExerciseConversion();
 
         exerciseSpinner = (Spinner) findViewById(R.id.exercise);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.exercise_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exerciseSpinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.exercises_array, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exerciseSpinner.setAdapter(spinnerAdapter);
         exerciseSpinner.setOnItemSelectedListener(this);
+
+        exerciseList = (ListView) findViewById(R.id.other_exercises);
+        listAdapter = new ExerciseArrayAdapter(this);
+        exerciseList.setAdapter(listAdapter);
 
         editAmount = (EditText) findViewById(R.id.edit_amount);
         editCalorie = (EditText) findViewById(R.id.edit_calorie);
         unitAmount = (TextView) findViewById(R.id.unit_amount);
         unitCalorie = (TextView) findViewById(R.id.unit_calorie);
 
-        int[] output = converter.output(selectedExercise, amountRep, true, true);
-        updateAmounts(output);
+        output = converter.output(selectedExercise, amountRep, true, true);
+        updateAmounts();
 
         editAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -120,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         });
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -145,12 +196,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void convert() {
-        int[] output = converter.output(selectedExercise, (toCalorie) ? amountRep : amountCal, toCalorie, true);
+        output = converter.output(selectedExercise, (toCalorie) ? amountRep : amountCal, toCalorie, true);
         Log.d(TAG, Arrays.toString(output));
-        updateAmounts(output);
+        updateAmounts();
     }
 
-    public void updateAmounts(int[] output) {
+    public void updateAmounts() {
         if (toCalorie) {
             updatingCalorie = true;
             editCalorie.setText(Integer.toString(output[selectedExercise]), TextView.BufferType.EDITABLE);
@@ -160,11 +211,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             editAmount.setText(Integer.toString(output[selectedExercise]), TextView.BufferType.EDITABLE);
             updatingAmount = false;
         }
+        listAdapter.notifyDataSetChanged();
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         selectedExercise = pos;
-        selectedUnit = converter.getExercise(selectedExercise).getMyType();
+        selectedUnit = units[selectedExercise];
         unitAmount.setText(selectedUnit);
         convert();
     }

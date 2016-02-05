@@ -22,7 +22,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/exercise"
+        android:layout_below="@id/exercise"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
         <EditText android:id="@+id/edit_amount"
@@ -60,8 +60,9 @@
             android:text="@string/unit_calorie" />
     </LinearLayout>
 
-    <ListView
+    <ListView android:id="@+id/other_exercises"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/field" >
     </ListView>
 </RelativeLayout>

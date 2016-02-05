@@ -23,7 +23,7 @@
     <string name="swimming_text">Swimming</string>
     <string name="stair_climbing_text">Stair-Climbing</string>
 
-    <string-array name="exercise_array">
+    <string-array name="exercises_array">
         <item>Pushup</item>
         <item>Situp</item>
         <item>Squats</item>
@@ -36,6 +36,21 @@
         <item>Jogging</item>
         <item>Swimming</item>
         <item>Stair-Climbing</item>
+    </string-array>
+
+    <string-array name="units_array">
+        <item>reps</item>
+        <item>reps</item>
+        <item>reps</item>
+        <item>mins</item>
+        <item>mins</item>
+        <item>mins</item>
+        <item>reps</item>
+        <item>mins</item>
+        <item>mins</item>
+        <item>mins</item>
+        <item>mins</item>
+        <item>mins</item>
     </string-array>
 
 </resources>
