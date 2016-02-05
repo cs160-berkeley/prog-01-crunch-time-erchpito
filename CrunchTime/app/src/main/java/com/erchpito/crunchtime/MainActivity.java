@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         updatingCalorie = false;
         selectedExercise = 0;
         amountRep = 100;
-        amountCal = 100;
         exercises = getResources().getStringArray(R.array.exercises_array);
         units = getResources().getStringArray(R.array.units_array);
         selectedUnit = units[selectedExercise];
@@ -147,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         output = converter.output(selectedExercise, amountRep, true, true);
         updateAmounts();
 
+        editAmount.setText(Integer.toString(amountRep), TextView.BufferType.EDITABLE);
         editAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
