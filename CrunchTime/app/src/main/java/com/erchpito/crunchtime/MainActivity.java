@@ -51,13 +51,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private TextView unitAmount;
     private TextView unitCalorie;
 
-    private class ExerciseArrayAdapter extends ArrayAdapter<CharSequence> {
+    private class ExerciseArrayAdapter extends ArrayAdapter<String> {
 
         private Context mContext;
 
         public ExerciseArrayAdapter(Context context) {
             super(context, R.layout.exercise_list_view, exercises);
             mContext = context;
+        }
+
+        @Override
+        public int getCount() {
+            return exercises.length - 1;
+        }
+
+        @Override
+        public String getItem(int position) {
+            if (selectedExercise <= position) {
+                position++;
+            }
+            return Integer.toString(position);
         }
 
         @Override
@@ -69,8 +82,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             TextView otherExercise = (TextView) convertView.findViewById(R.id.list_view_exercise);
             TextView otherAmount = (TextView) convertView.findViewById(R.id.list_view_amount);
-            otherExercise.setText(exercises[position]);
 
+            position = Integer.parseInt(getItem(position));
+            otherExercise.setText(exercises[position]);
             String render = Integer.toString(output[position]) + " ";
             if (output[position] == 1) {
                 render += units[position].substring(0, units[position].length() - 1);
@@ -78,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 render += units[position];
             }
             otherAmount.setText(render);
+
+//            convertView.setVisibility((position == selectedExercise) ? View.GONE : View.VISIBLE);
 
             return convertView;
         }
