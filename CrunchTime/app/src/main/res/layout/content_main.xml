@@ -10,7 +10,6 @@
     tools:showIn="@layout/activity_main">
 
     <RelativeLayout android:id="@+id/spinner_field"
-        android:background="#000000"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight">
 
@@ -32,7 +31,7 @@
     </RelativeLayout>
 
     <LinearLayout android:id="@+id/field"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:elevation="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"

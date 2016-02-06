@@ -1,22 +1,34 @@
 # PROG 01: Crunch Time
 
-Briefly describe your app here.
+This app converts number of repetition or duration of an exercise to the corresponding amount of calories burned, and vice versa; at the same time, the app will also display the approximate repetition / duration for other exericses needed to achieve the same calorie goal.
+
+The following exercises are supported:
+* Pushup
+* Situp
+* Squats
+* Leg-lift
+* Plank
+* Jumping Jacks
+* Pullup
+* Cycling
+* Walking
+* Jogging
+* Swimming
+* Stair-Climbing
 
 ## Authors
 
-FirstName LastName ([your_email@berkeley.edu](mailto:your_email@berkeley.edu))
+Eric Chen ([erchpito@berkeley.edu](mailto:erchpito@berkeley.edu))
 
 ## Demo Video
 
-See [your demo video title here] (https://link_to_your_video)
+See [a demo of the app here] (https://link_to_your_video)
 
 ## Screenshots
 
 <img src="screenshots/main.png" height="400" alt="Screenshot"/>
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Any other support
-
-*Feel free to enhance your README. For Markdown syntax, see [the GitHub Guides](https://guides.github.com/features/mastering-markdown/). Remove this line in your submission.*
+<img src="screenshots/exercise_dropdown.png" height="400" alt="Screenshot"/>
+<img src="screenshots/entering_amount.png" height="400" alt="Screenshot"/>
+<img src="screenshots/entering_calorie.png" height="400" alt="Screenshot"/>
+<img src="screenshots/scrolling.png" height="400" alt="Screenshot"/>
+<img src="screenshots/differet_exercise.png" height="400" alt="Screenshot"/>
