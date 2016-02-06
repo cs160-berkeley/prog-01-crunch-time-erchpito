@@ -1,22 +1,18 @@
 package com.erchpito.crunchtime;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -37,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private int amountRep;
     private int amountCal;
     private int[] output;
+    private int[] exerciseImages;
     private String selectedUnit;
     private String[] exercises;
     private String[] units;
@@ -49,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ListView exerciseList;
     private Spinner exerciseSpinner;
     private ImageView link;
+    private ImageView selectedImage;
     private TextView unitAmount;
     private TextView unitCalorie;
 
@@ -83,9 +80,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             TextView otherExercise = (TextView) convertView.findViewById(R.id.list_view_exercise);
             TextView otherAmount = (TextView) convertView.findViewById(R.id.list_view_amount);
+            ImageView otherImage = (ImageView) convertView.findViewById(R.id.list_view_image);
 
             position = Integer.parseInt(getItem(position));
-            otherExercise.setText(exercises[position]);
+
             String render = Integer.toString(output[position]) + " ";
             if (output[position] == 1) {
                 render += units[position].substring(0, units[position].length() - 1);
@@ -93,6 +91,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 render += units[position];
             }
             otherAmount.setText(render);
+            otherExercise.setText(exercises[position]);
+//            otherImage.setImageResource(exerciseImages[position]);
+
+//            ColorMatrix matrix = new ColorMatrix();
+//            matrix.setSaturation(0);
+//
+//            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+//            otherImage.setColorFilter(filter);
 
             return convertView;
         }
@@ -103,17 +109,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         toCalorie = true;
         updatingAmount = false;
@@ -123,6 +118,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         exercises = getResources().getStringArray(R.array.exercises_array);
         units = getResources().getStringArray(R.array.units_array);
         selectedUnit = units[selectedExercise];
+        exerciseImages = new int[]{
+                R.drawable.pushup,
+                R.drawable.situp,
+                R.drawable.squats,
+                R.drawable.leglift,
+                R.drawable.plank,
+                R.drawable.jumpingjacks,
+                R.drawable.pullup,
+                R.drawable.cycling,
+                R.drawable.walking,
+                R.drawable.jogging,
+                R.drawable.swimming,
+                R.drawable.stairclimbing
+        };
 
         converter = new ExerciseConversion();
 
@@ -138,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         exerciseList.setAdapter(listAdapter);
 
         link = (ImageView) findViewById(R.id.link);
+        selectedImage = (ImageView) findViewById(R.id.selected_image);
 
         editAmount = (EditText) findViewById(R.id.edit_amount);
         editCalorie = (EditText) findViewById(R.id.edit_calorie);
@@ -190,28 +200,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void convert() {
         output = converter.output(selectedExercise, (toCalorie) ? amountRep : amountCal, toCalorie, true);
         Log.d(TAG, Arrays.toString(output));
@@ -236,6 +224,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         selectedUnit = units[selectedExercise];
         unitAmount.setText(selectedUnit);
         convert();
+
+//        selectedImage.setImageResource(exerciseImages[selectedExercise]);
     }
 
     public void onNothingSelected(AdapterView<?> parent) { }
