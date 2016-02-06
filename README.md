@@ -22,7 +22,7 @@ Eric Chen ([erchpito@berkeley.edu](mailto:erchpito@berkeley.edu))
 
 ## Demo Video
 
-See [a demo of the app here] (https://link_to_your_video)
+See [a demo of the app here] (https://youtu.be/8tLEULrYzys)
 
 ## Screenshots
 
