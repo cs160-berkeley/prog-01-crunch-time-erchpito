@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ExerciseConversion converter;
     private ExerciseArrayAdapter listAdapter;
 
-    private Button updateButton;
     private EditText editAmount;
     private EditText editCalorie;
     private ListView exerciseList;
     private Spinner exerciseSpinner;
+    private ImageView link;
     private TextView unitAmount;
     private TextView unitCalorie;
 
@@ -93,8 +94,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
             otherAmount.setText(render);
 
-//            convertView.setVisibility((position == selectedExercise) ? View.GONE : View.VISIBLE);
-
             return convertView;
         }
 
@@ -104,17 +103,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         toCalorie = true;
         updatingAmount = false;
@@ -137,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         exerciseList = (ListView) findViewById(R.id.other_exercises);
         listAdapter = new ExerciseArrayAdapter(this);
         exerciseList.setAdapter(listAdapter);
+
+        link = (ImageView) findViewById(R.id.link);
 
         editAmount = (EditText) findViewById(R.id.edit_amount);
         editCalorie = (EditText) findViewById(R.id.edit_calorie);

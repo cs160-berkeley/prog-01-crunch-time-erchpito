@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView android:id="@+id/list_view_exercise"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_alignParentLeft="true"
         android:text="Hi"/>
 
     <TextView android:id="@+id/list_view_amount"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_alignParentRight="true"
-        android:text="Meow"/>
+        android:text="Hi"/>
 
 </RelativeLayout>
