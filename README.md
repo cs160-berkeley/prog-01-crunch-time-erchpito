@@ -31,4 +31,4 @@ See [a demo of the app here] (https://link_to_your_video)
 <img src="screenshots/entering_amount.png" height="400" alt="Screenshot"/>
 <img src="screenshots/entering_calorie.png" height="400" alt="Screenshot"/>
 <img src="screenshots/scrolling.png" height="400" alt="Screenshot"/>
-<img src="screenshots/differet_exercise.png" height="400" alt="Screenshot"/>
+<img src="screenshots/different_exercise.png" height="400" alt="Screenshot"/>
